@@ -11,6 +11,29 @@ st.set_page_config(
     layout="wide"
 )
 
+# Logo URLs
+IMDB_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/960px-IMDB_Logo_2016.svg.png"
+SNAP_LOGO = "https://snapanalytics.co.uk/wp-content/uploads/2022/03/snap-analytics-Logo.png"
+
+# Header with logos
+header_col1, header_col2, header_col3 = st.columns([1, 3, 1])
+
+with header_col1:
+    st.image(IMDB_LOGO, width=120)
+
+with header_col2:
+    st.markdown(
+        "<h1 style='text-align: center; margin-bottom: 0;'>Movie Analytics Dashboard</h1>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        "<p style='text-align: center; color: #666; margin-top: 0;'>Exploring patterns in movie ratings, revenue, and genres</p>",
+        unsafe_allow_html=True
+    )
+
+with header_col3:
+    st.image(SNAP_LOGO, width=150)
+
 # Load data
 @st.cache_data
 def load_data():
@@ -21,11 +44,9 @@ def load_data():
 
 df = load_data()
 
-# Title
-st.title("IMDB Movie Analytics Dashboard")
-st.markdown("*Exploring patterns in movie ratings, revenue, and genres*")
-
-# Sidebar filters
+# Sidebar branding and filters
+st.sidebar.image(SNAP_LOGO, width=180)
+st.sidebar.markdown("---")
 st.sidebar.header("Filters")
 
 # Year filter
@@ -324,4 +345,14 @@ st.plotly_chart(fig_matrix, width="stretch")
 
 # Footer
 st.markdown("---")
-st.caption("Data source: IMDB Movie Dataset | Dashboard built with Streamlit & Plotly")
+footer_col1, footer_col2, footer_col3 = st.columns([1, 2, 1])
+with footer_col2:
+    st.markdown(
+        """
+        <div style='text-align: center; color: #666; font-size: 0.9em;'>
+            <p style='margin-bottom: 5px;'>Dashboard built by <strong>Snap Analytics</strong> for <strong>IMDb</strong></p>
+            <p style='margin-top: 0;'>Data source: IMDB Movie Dataset | Powered by Streamlit & Plotly</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
